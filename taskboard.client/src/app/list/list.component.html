@@ -1,0 +1,56 @@
+<div class="list">
+    <div class="header">
+        <h3>{{list.name}}</h3>
+        <span 
+        style="
+        display: flex; 
+        width: 25%; 
+        justify-content: space-between;">
+            <h3>{{cards.length}}</h3>
+            <button class="list-options-btn"></button>
+        </span>
+    </div>
+    <div class="btn-container">
+        <button class="card-add-btn" (click)="openModal(createCardTemplate)">Add new card</button>
+    </div>
+    <div class="cards-container" *ngIf="lists$ | async as lists">
+        <app-card
+        *ngFor="let card of cards" 
+        [card]=card
+        [lists]=lists
+        ></app-card>
+    </div>
+
+    <ng-template #createCardTemplate let-lists let-createform>
+        <form [formGroup]="createForm">
+            <div>
+                <label for="name">Name</label><br>
+                <input id="name" formControlName="name" type="text">
+            </div>
+            <div>
+                <label for="description">Description</label><br>
+                <input id="description" formControlName="description" type="text">
+            </div>
+            <div>
+                <label for="dueDate">Due Date</label><br>
+                <input id="dueDate" formControlName="dueDate" type="date">
+            </div>
+            <div>
+                <label for="priority">Priority</label><br>
+                <select id="priority" formControlName="priority">
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+                </select>
+            </div>
+            <div>
+                <label for="listId">List</label><br>
+                <select id="listId" formControlName="listId">
+                    <option *ngFor="let list of lists$ | async" [value]="list.id">
+                        {{ list.name }}
+                    </option>
+                </select>
+            </div>
+        </form>
+    </ng-template>
+</div>

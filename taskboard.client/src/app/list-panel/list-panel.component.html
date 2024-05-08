@@ -1,0 +1,8 @@
+<div class="list-panel" *ngIf="(listsWithCards$ | async) as listsWithCards">
+    <app-list 
+    *ngFor="let item of listsWithCards" 
+    [list]="item.list" 
+    [cards]="item.cards"></app-list>
+  </div>
+  <div *ngIf="!(listsWithCards$ | async)">Loading...</div>
+  <div *ngIf="(listsWithCards$ | async)?.length === 0">No lists found.</div>
