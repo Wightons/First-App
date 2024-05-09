@@ -1,65 +1,35 @@
 .list{
     width: var(--list-width);
     height: 700px;
-    border: 1px solid black;
-}
-
-.list h3{
-    margin: 0;
-}
-
-.list .header{
     border-bottom: 1px solid black;
-    padding: 10px;
+}
+
+.list-header{
     display: flex;
     justify-content: space-between;
+    user-select: none;
+    padding: 5px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
-.btn-container{
-    padding: 3px 3px 3px;
+.list-header h3{
+    margin: 0 5px;
 }
 
-.card-add-btn{
-    width: 100%;
-    padding: 12px;
-    border: 1px dotted black;
-    background-color: transparent;
-    transition: background-color 500ms ease-out 10ms
-}
-
-.card-add-btn:hover{
-    background-color: rgb(235, 233, 233);
-}
-
-.list-options-btn{
-    background-color: transparent;
-    transition: background-color 500ms ease-out 10ms;
-    border-width: 0;
-    border-radius: 5px;
-    padding: 4px;
-}
-
-.card-add-btn::before{
-    content: "+";
-    padding-right: 5px;
-    font-weight: bold;
-}
-
-.list-options-btn::after{
-    content: "⋮";
-    font-weight: bold;
-}
-
-.list-options-btn:hover{
-    background-color: antiquewhite;
+.list-header span{
+    width: 20%;
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
 }
 
 .cards-container{
     padding: 3px;
     overflow-y: auto; 
-    height: calc(100% - 100px);
+    height: calc(100% - 87px);
 }
 
-.cards-container::-webkit-scrollbar{
-    display: none;
+.cards-container::-webkit-scrollbar {
+  display: none;
 }

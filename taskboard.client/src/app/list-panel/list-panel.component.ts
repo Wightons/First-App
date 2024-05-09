@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, switchMap } from 'rxjs';
 import { CardDto } from 'src/Dtos/CardDto';
 import { CardListDto } from 'src/Dtos/CardListDto';
@@ -15,9 +16,12 @@ export class ListPanelComponent {
   lists$: Observable<CardListDto[]> | null = null;
   listsWithCards$: Observable<{ list: CardListDto, cards: CardDto[] }[]> | null = null;
 
+  listForm: FormGroup | null = null;
+
   constructor(
     private listsService: ListsService, 
-    private cardsService: CardsService
+    private cardsService: CardsService,
+    private fb: FormBuilder,
   ) { }
 
   private getLists(): void{
@@ -45,6 +49,10 @@ export class ListPanelComponent {
 
   ngOnInit() {
 
+    this.listForm = this.fb.group({
+      name: ['', Validators.required]
+    });
+
     this.listsService.refreshNeeded
         .subscribe(() => {
           this.getLists();
@@ -60,7 +68,17 @@ export class ListPanelComponent {
     this.getLists();
     this.getCards();
     this.getSorted();
-
     }
-  
+
+    onSubmit(){
+      if(this.listForm?.valid){
+        
+        const list: CardListDto ={
+          id: 0,
+          name: this.listForm?.value.name
+        } 
+        console.log(list);
+        this.listsService.addList(list);
+      }
+    }
 }

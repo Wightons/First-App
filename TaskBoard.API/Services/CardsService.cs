@@ -30,6 +30,13 @@ namespace TaskBoard.API.Services
             {
                 var mappedModel = _mapper.Map<Card>(dto);
                 await _context.Cards.AddAsync(mappedModel);
+
+                await _context.SaveChangesAsync();
+
+                var listName = _context.Lists.Where(list => list.Id == mappedModel.Id).Select(l => l.Name).FirstOrDefault();
+                var logToAdd = new Log { Message = LogMessages.CardAddedToList(mappedModel.Name, listName), CardId = mappedModel.Id };
+                await _context.Logs.AddAsync(logToAdd);
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException ex)
@@ -51,12 +58,20 @@ namespace TaskBoard.API.Services
         {
             var dto = new CardDto() { Id = id };
             var mappedModel = _mapper.Map<Card>(dto);
+            var listName = _context.Lists.Where(list => list.Id == mappedModel.Id).Select(l => l.Name).FirstOrDefault();
 
             try
             {
-                _context.Cards.Attach(mappedModel);
-                _context.Cards.Remove(mappedModel);
+
+                var logToAdd = new Log { Message = LogMessages.CardDeletedFromList(dto.Name, listName) };
+                await _context.Logs.AddAsync(logToAdd);
                 await _context.SaveChangesAsync();
+
+                _context.Cards.Attach(mappedModel);
+                _context.Cards.Remove(mappedModel);   
+
+                await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -87,14 +102,24 @@ namespace TaskBoard.API.Services
         public async Task Update(int id, CardDto dto)
         {
             var model = await _context.Cards.FindAsync(id);
+            
             if (model == null)
             {
                 throw new KeyNotFoundException(ErrorMessages.CardWithIdNotFound(id));
             }
 
+            var modelNameBefore = model.Name;
+
             var modelId = model.Id;
             _mapper.Map(dto, model);
             model.Id = modelId;
+
+            var modelNameAfter = model.Name;
+
+
+            var listName = _context.Lists.Where(list => list.Id == model.Id).Select(l => l.Name).FirstOrDefault();
+            var logToAdd = new Log { Message = LogMessages.CardUpdatedInList(model.Name, listName, modelNameAfter), CardId = model.Id };
+            await _context.Logs.AddAsync(logToAdd);
 
             await _context.SaveChangesAsync();
 

@@ -5,6 +5,7 @@ using TaskBoard.API.Contracts;
 using TaskBoard.API.Database;
 using TaskBoard.API.Database.Entities;
 using TaskBoard.API.Dtos;
+using TaskBoard.API.Helpers;
 
 namespace TaskBoard.API.Services
 {
@@ -24,6 +25,10 @@ namespace TaskBoard.API.Services
             {
                 var mappedModel = _mapper.Map<CardList>(dto);
                 await _context.AddAsync(mappedModel);
+
+                var logToAdd = new Log { Message = LogMessages.ListCreated(mappedModel.Name) };
+                await _context.Logs.AddAsync(logToAdd);
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException ex)
@@ -39,13 +44,17 @@ namespace TaskBoard.API.Services
 
         public async Task Delete(int id)
         {
-            var dto = new CardListDto() { Id = id };
-            var mappedModel = _mapper.Map<CardList>(dto);
-
             try
             {
-                _context.Lists.Attach(mappedModel);
-                _context.Lists.Remove(mappedModel);
+                var cd = _context.Lists.Find(id);
+                _context.Cards.RemoveRange(_context.Cards.Where(c => c.ListId == id).ToList());
+
+                _context.Lists.Attach(cd);
+                _context.Lists.Remove(cd);
+
+                var logToAdd = new Log { Message = LogMessages.ListDeleted(cd.Name) };
+                await _context.Logs.AddAsync(logToAdd);
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -77,6 +86,7 @@ namespace TaskBoard.API.Services
         public async Task Update(int id, CardListDto dto)
         {
             var model = await _context.Lists.FindAsync(id);
+            var nameBefore = model.Name;
             if (model == null)
             {
                 throw new Exception($"No list with id {id}");
@@ -86,6 +96,9 @@ namespace TaskBoard.API.Services
 
             if (model.Name != mappedDto.Name)
             {
+                var logToAdd = new Log { Message = LogMessages.ListUpdated(nameBefore, mappedDto.Name) };
+                await _context.Logs.AddAsync(logToAdd);
+
                 model.Name = mappedDto.Name;
                 try
                 {

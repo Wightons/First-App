@@ -24,10 +24,25 @@ export class ListsService {
   addList(list: CardListDto){
     this.http
     .post<CardListDto>(environment.baseApiUrl + 'lists', list)
-    .pipe(
-      tap(()=>{
-        this._refreshNeeded$.next();
-      })
-    );
+    .subscribe(() => {
+      this._refreshNeeded$.next();
+    });
   }
+
+  deleteList(id: number){
+    this.http
+    .delete(environment.baseApiUrl + `lists/${id}`)
+    .subscribe(() => {
+      this._refreshNeeded$.next();
+    });
+  }
+
+  updateList(id: number, list: CardListDto){
+    this.http
+    .patch(environment.baseApiUrl + `lists/${id}`, list)
+    .subscribe(() => {
+      this._refreshNeeded$.next();
+    });
+  }
+
 }

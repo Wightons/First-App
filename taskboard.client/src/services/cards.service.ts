@@ -29,4 +29,20 @@ export class CardsService {
     });
   }
 
+  deleteCard(id: number){
+    this.http
+    .delete(environment.baseApiUrl + `cards/${id}`)
+    .subscribe(() => {
+      this._refreshNeeded$.next();
+    });
+  }
+
+  updateCard(id: number, card: CardDto){
+    this.http
+    .patch(environment.baseApiUrl + `cards/${id}`, card)
+    .subscribe(() => {
+      this._refreshNeeded$.next();
+    });
+  }
+
 }

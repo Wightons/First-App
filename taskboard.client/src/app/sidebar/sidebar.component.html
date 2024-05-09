@@ -1,0 +1,9 @@
+<div class="sidebar" [ngClass]="{'open': isOpen}">
+  <button class="btn-close" (click)="toggleSidebar()"></button>
+
+  <ul>
+    <li *ngFor="let log of logs$ | async" 
+    [innerHTML]="sanitize(log.message)"
+    ></li>
+  </ul>
+</div>

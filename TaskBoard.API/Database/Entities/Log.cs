@@ -5,6 +5,5 @@
         public string Message { get; set; }
         //relation props
         public int CardId { get; set; }
-        public Card Card { get; set; }
     }
 }

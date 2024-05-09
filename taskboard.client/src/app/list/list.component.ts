@@ -1,10 +1,12 @@
-import { Component, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { CardDto, Priority } from 'src/Dtos/CardDto';
+import { Component, Input } from '@angular/core';
+import { CardDto } from 'src/Dtos/CardDto';
 import { CardListDto } from 'src/Dtos/CardListDto';
 import { Observable } from 'rxjs';
 import { ListsService } from 'src/services/lists.service';
-import { ModalService } from 'src/services/modal.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ModalService } from 'ngx-modal-ease';
+import { ModalComponent } from '../modal/modal.component';
+import { ModalType } from 'src/Types/ModalType';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -18,35 +20,57 @@ export class ListComponent {
   cards: CardDto[] = [];
   lists$: Observable<CardListDto[]> | null = null;
 
+  showEditForm: boolean = false;
+
   constructor(
     private listsService: ListsService,
-    private vcr: ViewContainerRef, 
     private modalService: ModalService,
-    private fb: FormBuilder){}
+    private formBuilder: FormBuilder
+  ){}
   
-  openModal(modalTemplate: TemplateRef<any>) {
-    this.modalService
-      .open(this.vcr, modalTemplate, { title: 'New Card', data: this.lists$})
-      .subscribe((action) => {
-        console.log('modalAction', action);
-      });
+  openEditForm(event: Event) {
+    this.showEditForm = !this.showEditForm;
+    event.stopPropagation();
   }
 
-  createForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(1)]],
-    description: ['', Validators.required],
-    dueDate: [null],
-    priority: [null, [Validators.required, Validators.min(1), Validators.max(3)]],
-    listId: [null, Validators.required],
+  editForm: FormGroup = this.formBuilder.group({
+    name: ['', Validators.required],
   });
 
-  //ngx-modal-ease
-  onSubmit(card: CardDto){
-    this.listsService.addList(card);
+  submitEdit(event: Event){
+    event.preventDefault();
+    if(this.editForm.valid){
+      const list: CardListDto = {
+        id: this.list.id,
+        name: this.editForm.value.name,
+      }
+      this.listsService.updateList(list.id,list);
+    }
+    this.showEditForm = false;
+  }
+
+  openModal() {
+    this.modalService.open(ModalComponent, 
+      {
+        data: 
+        {
+          modalType: ModalType.Create,
+          modalData: this.list.id
+        },
+        size:{
+          width: "50%",
+        },
+      }).subscribe((data)=>{
+        console.log("data from form", data);
+      });
   }
 
   ngOnInit(){
     this.lists$ = this.listsService.getLists();
-    this.lists$.subscribe(lists => console.log(lists));
   }
+
+  deleteHandler(){
+    this.listsService.deleteList(this.list.id);
+  }
+
 }
