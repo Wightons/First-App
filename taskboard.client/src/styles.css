@@ -1,0 +1,18 @@
+:root {
+    --header-height: 80px;
+    --list-width: 428px;
+}
+
+body{
+    margin: 0;
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn{
+    transition: background-color 0.5s ease;
+}
+
+.btn:hover{
+    background-color: lightgray;
+}

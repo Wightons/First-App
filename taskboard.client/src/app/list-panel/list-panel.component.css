@@ -1,0 +1,15 @@
+.list-panel{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, var(--list-width));
+    gap: 10px;
+    padding: 10px;
+    height: calc(100% - var(--header-height));
+    overflow-y: auto;
+}
+
+#add-list{
+    width: var(--list-width);
+    border-radius: 0;
+    border-width: 1px;
+    height: 45px;
+}

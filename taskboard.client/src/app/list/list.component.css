@@ -1,0 +1,35 @@
+.list{
+    width: var(--list-width);
+    height: 700px;
+    border-bottom: 1px solid black;
+}
+
+.list-header{
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+    padding: 5px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.list-header h3{
+    margin: 0 5px;
+}
+
+.list-header span{
+    width: 20%;
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+}
+
+.cards-container{
+    padding: 3px;
+    overflow-y: auto; 
+    height: calc(100% - 87px);
+}
+
+.cards-container::-webkit-scrollbar {
+  display: none;
+}

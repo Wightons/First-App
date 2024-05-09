@@ -1,0 +1,31 @@
+<div class="card mt-1">
+  <div class="card-header d-flex justify-content-between align-middle">
+    <h5 class="card-title pt-2">{{card.name}}</h5>
+    <div class="dropdown">
+        <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ⋮
+        </button>
+        <ul class="dropdown-menu">
+          <button (click)="editHandler()"
+          class="dropdown-item">Edit</button>
+          <button (click)="deleteHandler()" 
+          class="dropdown-item">Delete</button>
+        </ul>
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{card.description}}</p>
+    <p class="card-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+        </svg> 
+        {{formattedDate}}</p>
+    <p class="card-text">
+        <span class="badge rounded-pill bg-secondary p-3">{{priorName}}</span>
+    </p>
+    <select (change)="onListSelect($event)" class="form-select" aria-label="Default select example">
+      <option selected disabled>Move to...</option>
+      <option *ngFor="let list of lists" [value]="list.id">{{ list.name }}</option>
+    </select>
+  </div>
+</div>

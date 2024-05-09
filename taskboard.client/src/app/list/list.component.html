@@ -1,0 +1,38 @@
+<div class="list">
+    <div style="height: 87px;">
+        <div class="list-header">
+            <h3>{{list.name}}</h3>
+            <span class="dropdown">
+                <h3>{{cards.length}}</h3>
+                <button data-bs-toggle="dropdown" class="btn text-dark rounded-pill border-0">⋮</button>
+                <div class="dropdown-menu" data-bs-auto-close="outside">
+                    <button id="edit-form-open" (click)="openEditForm($event)"
+                     class="dropdown-item">Edit</button>
+                    <div *ngIf="showEditForm" class="edit-form-container">
+                        <form [formGroup]="editForm" (submit)="submitEdit($event)">
+                          <input placeholder="list name" 
+                          class="form-control" type="text"
+                          formControlName="name">
+                          <button class="btn btn-primary" type="submit">Save</button>
+                        </form>
+                    </div>
+                    <button class="dropdown-item"
+                    (click)="deleteHandler()"
+                    >Delete</button>
+                </div>  
+            </span>
+        </div>
+        <div>
+            <button
+            (click)="openModal()"
+            class="btn w-100 border border-dotted mt-1">+ Add new card</button>
+        </div>
+    </div>
+    <div class="cards-container" *ngIf="lists$ | async as lists">
+        <app-card
+        *ngFor="let card of cards" 
+        [card]=card
+        [lists]=lists
+        ></app-card>
+    </div>
+</div>
