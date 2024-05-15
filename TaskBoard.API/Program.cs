@@ -20,6 +20,7 @@ if (builder.Environment.IsDevelopment())
 builder.Services.AddScoped<IBaseEntityService<CardDto>, CardsService>();
 builder.Services.AddScoped<IBaseEntityService<CardListDto>, ListService>();
 builder.Services.AddScoped<LogService>();
+builder.Services.AddScoped<IBaseEntityService<BoardDto>, BoardsService>();
 
 
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));

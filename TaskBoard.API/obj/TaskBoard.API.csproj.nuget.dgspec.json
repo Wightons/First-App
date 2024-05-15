@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kolo\\Desktop\\First-App\\TaskBoard.API\\TaskBoard.API.csproj": {}
+    "C:\\Users\\Kolo\\Desktop\\Новая папка\\First-App\\TaskBoard.API\\TaskBoard.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kolo\\Desktop\\First-App\\TaskBoard.API\\TaskBoard.API.csproj": {
+    "C:\\Users\\Kolo\\Desktop\\Новая папка\\First-App\\TaskBoard.API\\TaskBoard.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kolo\\Desktop\\First-App\\TaskBoard.API\\TaskBoard.API.csproj",
+        "projectUniqueName": "C:\\Users\\Kolo\\Desktop\\Новая папка\\First-App\\TaskBoard.API\\TaskBoard.API.csproj",
         "projectName": "TaskBoard.API",
-        "projectPath": "C:\\Users\\Kolo\\Desktop\\First-App\\TaskBoard.API\\TaskBoard.API.csproj",
+        "projectPath": "C:\\Users\\Kolo\\Desktop\\Новая папка\\First-App\\TaskBoard.API\\TaskBoard.API.csproj",
         "packagesPath": "C:\\Users\\Kolo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kolo\\Desktop\\First-App\\TaskBoard.API\\obj\\",
+        "outputPath": "C:\\Users\\Kolo\\Desktop\\Новая папка\\First-App\\TaskBoard.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

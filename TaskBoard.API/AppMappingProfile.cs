@@ -11,6 +11,7 @@ namespace TaskBoard.API
             CreateMap<Card, CardDto>().ReverseMap();
             CreateMap<CardList, CardListDto>().ReverseMap();
             CreateMap<Log, LogDto>().ReverseMap();
+            CreateMap<Board, BoardDto>().ReverseMap();
         }
     }
 }

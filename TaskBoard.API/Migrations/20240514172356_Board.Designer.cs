@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TaskBoard.API.Database;
@@ -11,9 +12,11 @@ using TaskBoard.API.Database;
 namespace TaskBoard.API.Migrations
 {
     [DbContext(typeof(TaskBoardContext))]
-    partial class TaskBoardContextModelSnapshot : ModelSnapshot
+    [Migration("20240514172356_Board")]
+    partial class Board
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
