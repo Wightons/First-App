@@ -14,6 +14,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BoardComponent } from './board/board.component';
 import { BoardPanelComponent } from './board-panel/board-panel.component';
+import { StoreModule } from '@ngrx/store';
 
 const routes: Routes = [
   { path: "boards", component: BoardPanelComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
+    StoreModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
