@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Npgsql;
 using TaskBoard.API.Contracts;
 using TaskBoard.API.Database;
@@ -79,6 +80,13 @@ namespace TaskBoard.API.Services
         public async Task<IEnumerable<CardListDto>> GetAll()
         {
             var modelsList = await _context.Lists.ToListAsync();
+            var mappedList = _mapper.Map<IEnumerable<CardListDto>>(modelsList);
+            return mappedList;
+        }
+
+        public async Task<IEnumerable<CardListDto>> GetByBoardId(int boardId)
+        {
+            var modelsList = await _context.Lists.Where(l => l.BoardId == boardId).ToListAsync();
             var mappedList = _mapper.Map<IEnumerable<CardListDto>>(modelsList);
             return mappedList;
         }

@@ -4,19 +4,3 @@
     box-sizing: border-box;
     overflow: hidden;
 }
-
-.header{
-    display: flex;
-    height: var(--header-height);
-    border-bottom: 1px solid black;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.header h2{
-    margin: 0;
-}
-
-.header button{
-    padding: 7px 15px;
-}

@@ -1,0 +1,13 @@
+#board-card{
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle default shadow */
+  transition: box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+#board-card:hover{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+#board-card .card-header{
+    user-select: none;
+}

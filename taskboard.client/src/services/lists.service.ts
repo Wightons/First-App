@@ -21,6 +21,10 @@ export class ListsService {
     return this.http.get<CardListDto[]>(environment.baseApiUrl + "lists");
   }
 
+  getByBoardId(boardId: number): Observable<CardListDto[]> {
+    return this.http.get<CardListDto[]>(environment.baseApiUrl + `lists/board/${boardId}`);
+  }
+
   addList(list: CardListDto){
     this.http
     .post<CardListDto>(environment.baseApiUrl + 'lists', list)

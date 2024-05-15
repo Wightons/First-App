@@ -11,6 +11,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './list/list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { RouterModule, Routes } from '@angular/router';
+import { BoardComponent } from './board/board.component';
+import { BoardPanelComponent } from './board-panel/board-panel.component';
+
+const routes: Routes = [
+  { path: "boards", component: BoardPanelComponent },
+  { path: "", pathMatch: "full", redirectTo: "/boards" },
+  { path: "boards/:id", component: ListPanelComponent },
+];
 
 @NgModule({
   declarations: [
@@ -20,12 +29,15 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     ListComponent,
     ModalComponent,
     SidebarComponent,
+    BoardComponent,
+    BoardPanelComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]

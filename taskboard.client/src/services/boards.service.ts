@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BoardDto } from 'src/Dtos/BoardDto';
 import { environment } from 'src/environment/environment';
 
@@ -17,8 +17,12 @@ export class BoardsService {
     return this._refreshNeeded$;
   }
 
-  getBoards(){
+  getBoards() : Observable<BoardDto[]>{
     return this.http.get<BoardDto[]>(environment.baseApiUrl + "boards");
+  }
+
+  getById(id: number): Observable<BoardDto>{
+    return this.http.get<BoardDto>(environment.baseApiUrl + `boards/${id}`);
   }
 
   addBoard(board: BoardDto){
