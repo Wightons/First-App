@@ -2,15 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using TaskBoard.API.Contracts;
 using TaskBoard.API.Dtos;
+using TaskBoard.API.Services;
 
 namespace TaskBoard.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ListsController : ControllerBase, IBaseCrudController<CardListDto>
+    public class ListsController : ControllerBase
     {
-        private readonly IBaseEntityService<CardListDto> _listsService;
-        public ListsController(IBaseEntityService<CardListDto> listsService)
+        private readonly ListService _listsService;
+        public ListsController(ListService listsService)
         {
             _listsService = listsService;
         }
@@ -33,6 +34,17 @@ namespace TaskBoard.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var res = await _listsService.GetAll();
+            if (res.Count() == 0)
+            {
+                return NoContent();
+            }
+            return Ok(res);
+        }
+
+        [HttpGet("board/{boardId}")]
+        public async Task<IActionResult> GetByBoardId(int boardId)
+        {
+            var res = await _listsService.GetByBoardId(boardId);
             if (res.Count() == 0)
             {
                 return NoContent();

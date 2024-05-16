@@ -18,6 +18,8 @@ export class ListComponent {
   list: CardListDto = new CardListDto;
   @Input()
   cards: CardDto[] = [];
+  @Input()
+  boardId: number | null = null;
   lists$: Observable<CardListDto[]> | null = null;
 
   showEditForm: boolean = false;
@@ -35,6 +37,7 @@ export class ListComponent {
 
   editForm: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
+    boardId: ['', Validators.required],
   });
 
   submitEdit(event: Event){
@@ -43,6 +46,7 @@ export class ListComponent {
       const list: CardListDto = {
         id: this.list.id,
         name: this.editForm.value.name,
+        boardId: this.boardId!
       }
       this.listsService.updateList(list.id,list);
     }

@@ -1,0 +1,28 @@
+<div class="d-flex">
+    <h3 class="m-0">Boards Panel</h3>
+</div>
+<div class="row">
+
+    <div class="col">
+        <div class="board-panel container">
+            <div *ngFor="let item of boardsWithLists$ | async" class="col-sm-6 col-md-4 col-lg-3 mb-3">
+            <app-board
+            [board]="item.board"
+            [lists]="item.lists"
+            ></app-board>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <form [formGroup]="createBoard" class="form m-2"
+    (submit)="onSubmit()">
+        <h3>Create Board</h3>
+        <input 
+        class="form-control"
+        placeholder="board name"
+        formControlName="name">
+        <input class="btn btn-primary mt-2"
+        type="submit" value="create">
+    </form>
+</div>
+</div>

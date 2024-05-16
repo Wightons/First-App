@@ -22,6 +22,23 @@ namespace TaskBoard.API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("TaskBoard.API.Database.Entities.Board", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Boards");
+                });
+
             modelBuilder.Entity("TaskBoard.API.Database.Entities.Card", b =>
                 {
                     b.Property<int>("Id")
@@ -62,11 +79,16 @@ namespace TaskBoard.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BoardId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BoardId");
 
                     b.ToTable("Lists");
                 });
@@ -100,6 +122,22 @@ namespace TaskBoard.API.Migrations
                         .IsRequired();
 
                     b.Navigation("List");
+                });
+
+            modelBuilder.Entity("TaskBoard.API.Database.Entities.CardList", b =>
+                {
+                    b.HasOne("TaskBoard.API.Database.Entities.Board", "Board")
+                        .WithMany("Lists")
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Board");
+                });
+
+            modelBuilder.Entity("TaskBoard.API.Database.Entities.Board", b =>
+                {
+                    b.Navigation("Lists");
                 });
 #pragma warning restore 612, 618
         }

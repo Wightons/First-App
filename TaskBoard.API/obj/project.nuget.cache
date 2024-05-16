@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tcZimpsFfi0aFCKwYTg0ipANsoumDHB6lRp/kFCoXsJm1rKkrHY+vJ3kLFLSLxxr002Nqtxv3BV3zMP5BX7ryA==",
+  "dgSpecHash": "LN8YfipsMY5iKuRTQBOkVZtxKBLqAShRIsn5juswzg/saoMg4mZUFJnMpOikFC+ZwR/N5NH6taicpBe2IeQcRQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kolo\\Desktop\\First-App\\TaskBoard.API\\TaskBoard.API.csproj",
+  "projectFilePath": "C:\\Users\\Kolo\\Desktop\\Новая папка\\First-App\\TaskBoard.API\\TaskBoard.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kolo\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Kolo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

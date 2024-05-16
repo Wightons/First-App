@@ -13,5 +13,7 @@ namespace TaskBoard.API.Database
         public DbSet<Card> Cards { get; set; }
         public DbSet<CardList> Lists { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Board> Boards { get; set; }
+
     }
 }

@@ -1,0 +1,10 @@
+<div id="board-card" class="card" (click)="routeOnBoard()">
+   <div class="card-header">
+        <h3 class="card-title">{{board?.name}}</h3>
+   </div> 
+   <div class="card-body">
+      <ol>
+         <li *ngFor="let list of lists">{{list.name}}</li>
+      </ol>
+   </div>
+</div>
